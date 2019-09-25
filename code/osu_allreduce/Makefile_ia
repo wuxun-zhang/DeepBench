@@ -1,10 +1,12 @@
-CC          = mpiicc
+#CC          = mpiicc
+CC          = mpigcc
 CC_FLAGS    = -c -O2
 MPI_PATH   ?= $(I_MPI_ROOT)
 MKDIR       = mkdir -p
 BIN_DIR    ?= bin
 KERNELS_DIR = ../kernels/
 INC_DIRS    = -I$(KERNELS_DIR)
+INC_DIRS    += -I${MPI_PATH}/include
 
 MLSL_PATH ?= $(MLSL_ROOT)
 ifneq ($(MLSL_PATH),)

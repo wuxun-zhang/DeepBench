@@ -36,15 +36,19 @@ function run_allreduce
     binary=$5
 
     # IMPI configuration
-    export I_MPI_FABRICS=tmi
-    export I_MPI_PIN_PROCESSOR_LIST=5
+    #export I_MPI_FABRICS=tmi
+    export I_MPI_PIN_DOMAIN=[0x000000000000000ffffe,0x0000000000ffffe00000]
+    #export I_MPI_PIN_PROCESSOR_LIST=5
     export I_MPI_DEBUG=5
 
     # MLSL configuration
-    export MLSL_NUM_SERVERS=16
-    export MLSL_SERVER_AFFINITY="6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"
-    export MLSL_LOG_LEVEL=1
+    export MLSL_NUM_SERVERS=1
+    export MLSL_SERVER_AFFINITY=0
+    #export OMP_NUM_THREADS=18
 
+    export MLSL_LOG_LEVEL=1
+    export MLSL_USE_MPI_FORCE=1
+    
     mpiexec.hydra -bootstrap ssh -n $proc_count -ppn $ppn -hostfile $hostfile numactl --preferred=$numa_node $binary
 }
 
